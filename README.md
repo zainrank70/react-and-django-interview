@@ -6,7 +6,7 @@ Repo for React and Django practice.
 
 ## myapp (React + Vite)
 
-Small React app with a Counter component — useState, JSX, components.
+React practice app: Counter (useState, useEffect), controlled input (Controlcomponent), and uncontrolled input (Uncontrolcomponent). Toggle which one runs in `App.jsx`.
 
 **Stack:** React 19, Vite 7
 
@@ -40,7 +40,9 @@ myapp/
 │   ├── App.jsx
 │   ├── style.css
 │   └── components/
-│       └── Counter.jsx
+│       ├── Counter.jsx
+│       ├── Controlcomponent.jsx
+│       └── Uncontrolcomponent.jsx
 ```
 
 ### useEffect — dependency array

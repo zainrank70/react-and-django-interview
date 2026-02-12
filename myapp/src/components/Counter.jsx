@@ -9,7 +9,7 @@ function Counter(){
 
     return (
         <>
-        <h1>Counter Component Pratice</h1>
+        <h1>Counter Component Practice</h1>
         <p>Counter Value is : {count}</p>
         <button onClick={()=>{
             Setcount(count=>count+1)
