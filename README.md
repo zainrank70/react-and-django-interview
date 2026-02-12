@@ -6,7 +6,7 @@ Repo for React and Django practice.
 
 ## myapp (React + Vite)
 
-React practice app: Counter (useState, useEffect), controlled input (Controlcomponent), and uncontrolled input (Uncontrolcomponent). Toggle which one runs in `App.jsx`.
+React practice app: Counter (useState, useEffect), controlled/uncontrolled inputs (Controlcomponent, Uncontrolcomponent), useMemo (Memo), useCallback (Callback). Toggle which component runs in `App.jsx`.
 
 **Stack:** React 19, Vite 7
 
@@ -42,8 +42,21 @@ myapp/
 │   └── components/
 │       ├── Counter.jsx
 │       ├── Controlcomponent.jsx
-│       └── Uncontrolcomponent.jsx
+│       ├── Uncontrolcomponent.jsx
+│       ├── Memo.jsx
+│       └── Callback.jsx
 ```
+
+### Re-render — what it does for a component
+
+When a component **re-renders**:
+
+1. React **runs the component function again** (the whole function body runs).
+2. A **new JSX tree** is produced (based on current state and props).
+3. React **diffs** that tree with the previous one and **updates the DOM** only where something changed.
+4. **Hooks** in that component run again (useState returns current state; useMemo/useCallback may return cached value/function if deps unchanged).
+
+So re-render = “run this component again and update the UI to match.” It does **not** mean the whole app or child trees always re-render; React skips subtrees when props (and state) are unchanged, unless the parent’s re-render forces them.
 
 ### useEffect — dependency array
 
@@ -117,3 +130,11 @@ function UncontrolledInput() {
 - The input manages its own value (DOM holds it).
 - React reads it only when needed (via `ref`).
 - React does not re-render on every keystroke.
+
+### useMemo
+
+Memoizes a **value**. The computation runs only when a dependency changes; otherwise React returns the cached value. Use when the calculation is expensive or you need a stable reference. Without useMemo, the expression runs on every re-render.
+
+### useCallback
+
+Memoizes a **function**. Returns the same function reference when dependencies are unchanged (so the function isn’t recreated every render). Use when passing callbacks to children wrapped in `React.memo` or when the function is in a `useEffect` dependency list.
