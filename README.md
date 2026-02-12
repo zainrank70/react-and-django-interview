@@ -59,3 +59,59 @@ myapp/
 ### Why keys are needed
 
 React renders lists efficiently using the Virtual DOM. When a list changes (add, remove, reorder), React needs to know which item is which. **Without keys:** React may re-render the entire list (slow, can cause bugs). **With keys:** React can match each element with its previous version and update only what changed.
+
+### Controlled components (form inputs)
+
+A **controlled component** is a form element (`input`, `textarea`, `select`) whose value is controlled by React state. React keeps track of the value and updates it through state.
+
+Example:
+
+```jsx
+import { useState } from "react";
+
+function ControlledInput() {
+  const [name, setName] = useState("");
+
+  const handleChange = (e) => setName(e.target.value);
+
+  return (
+    <div>
+      <input type="text" value={name} onChange={handleChange} />
+      <p>Hello, {name}</p>
+    </div>
+  );
+}
+```
+
+- `value={name}` → React controls the input value.
+- `onChange` updates the state.
+- The input value and React state are always in sync.
+
+### Uncontrolled components (form inputs)
+
+An **uncontrolled component** is a form element that keeps its own internal state. You don’t use React state for its value; you read the value when needed (e.g. via a ref).
+
+Example:
+
+```jsx
+import { useRef } from "react";
+
+function UncontrolledInput() {
+  const inputRef = useRef();
+
+  const handleSubmit = () => {
+    alert(`Hello, ${inputRef.current.value}`);
+  };
+
+  return (
+    <div>
+      <input type="text" ref={inputRef} />
+      <button onClick={handleSubmit}>Submit</button>
+    </div>
+  );
+}
+```
+
+- The input manages its own value (DOM holds it).
+- React reads it only when needed (via `ref`).
+- React does not re-render on every keystroke.
